@@ -6,6 +6,7 @@ $sql = 'SELECT * FROM `users` WHERE user_id = :id';
 $userData = $pdo->executeAll($sql, ['id' => $_COOKIE["id"]])
 ?>
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
     <meta charset="utf-8"/>
