@@ -1,0 +1,9 @@
+{
+    "name": "kotofeika/localhost",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Localhost\\": "./"
+        }
+    }
+}
