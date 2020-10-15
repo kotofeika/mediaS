@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . "/vendor/autoload.php";
-use Localhost\DB;
+
+use Localhost\Service\DB;
+
 $pdo = new DB();
 $sql = 'SELECT * FROM `users` WHERE user_id = :id';
 $userData = $pdo->executeAll($sql, ['id' => $_COOKIE["id"]])
@@ -20,7 +22,7 @@ foreach ($userData as $rowUserData) {
     ?>
     <h3><?= $rowUserData['user_login'] ?></h3>
 <?php } ?>
-<form action="load.php" method="POST" enctype="multipart/form-data">
+<form action="ImageLoading/load.php" method="POST" enctype="multipart/form-data">
     <input type="file" name="image[]" multiple> <br>
     <input type="submit">
     <ul>

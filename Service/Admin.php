@@ -1,10 +1,10 @@
 <?php
 
+namespace Localhost\Service;
 
-namespace Localhost;
+use Localhost\SessionClass\SessionManager;
 
-
-class AdminCheck
+class Admin
 {
     protected static string $query = 'SELECT `Admin` FROM `users` WHERE `user_id` = :id';
     public static function Check()
@@ -15,5 +15,14 @@ class AdminCheck
         $Admin = $pdo->selectOne(self::$query,$options);
         $Admin = $Admin['Admin'];
         return $Admin;
+    }
+
+    public static function DeleteProfile($options)
+    {
+        $pdo = new DB();
+        $sql= 'DELETE FROM `users` WHERE `user_id` = (?)';
+        $pdo->update($sql, [ $options ]);
+        $sql = 'DELETE FROM `pictures` WHERE `user_id` = (?)';
+        $pdo->update($sql, [ $options ]);
     }
 }

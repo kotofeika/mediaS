@@ -1,6 +1,9 @@
 <?php
 
-namespace Localhost;
+namespace Localhost\Auth;
+
+use Localhost\SessionClass\SessionManager;
+use Localhost\Service\DB;
 
 class Registration
 {

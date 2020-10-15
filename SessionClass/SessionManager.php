@@ -1,6 +1,6 @@
 <?php
 
-namespace Localhost;
+namespace Localhost\SessionClass;
 
 class SessionManager
 {
@@ -9,7 +9,7 @@ class SessionManager
     private function __construct()
     {
         session_set_save_handler(new SessionHandler(), true);
-        session_save_path(__DIR__ . DIRECTORY_SEPARATOR . 'sessions');
+        session_save_path(__DIR__ . DIRECTORY_SEPARATOR);
         session_start();
         $_SESSION['authorized'] ??= false;
     }

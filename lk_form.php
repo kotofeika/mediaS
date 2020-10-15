@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . "/vendor/autoload.php";
-use Localhost\SessionManager;
-use Localhost\AdminCheck;
-use Localhost\imagesContorller;
-$userData = \Localhost\SessionManager::create()->user();
+
+use Localhost\SessionClass\SessionManager;
+use Localhost\Service\Admin;
+use Localhost\ImageLoading\imagesContorller;
+
+$userData = SessionManager::create()->user();
 
 if (SessionManager::create()->isAuthorized() && $_GET['id'] === null){
 ?>
@@ -27,7 +29,7 @@ if (SessionManager::create()->isAuthorized() && $_GET['id'] === null){
 
     <td>
         <div class="container">
-            <a href="logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
+            <a href="Auth/logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
         </div>
     </td>
 </table>
@@ -47,12 +49,12 @@ if (SessionManager::create()->isAuthorized() && $_GET['id'] === null){
 </table>
 
 <?php imagesContorller::ShowMy();
-} if (SessionManager::create()->isAuthorized() && $_GET['id'] != SessionManager::create()->user('user_id') && AdminCheck::Check() === null ){ ?>
+} if (SessionManager::create()->isAuthorized() && $_GET['id'] != SessionManager::create()->user('user_id') && Admin::Check() === null ){ ?>
 
 <?php imagesContorller::ShowUser();
 }
 
-if (SessionManager::create()->isAuthorized() && ( $_GET['id'] != SessionManager::create()->user('user_id') || $_GET['id'] !=null ) && AdminCheck::Check() != null ){ ?>
+if (SessionManager::create()->isAuthorized() && ( $_GET['id'] != SessionManager::create()->user('user_id') || $_GET['id'] !=null ) && Admin::Check() != null ){ ?>
 
     <?php imagesContorller::AdmShowUser();
 }

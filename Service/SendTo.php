@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Localhost;
+namespace Localhost\Service;
 
 
 class SendTo

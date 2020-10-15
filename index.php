@@ -1,9 +1,13 @@
 <?php
 require_once __DIR__ . "/vendor/autoload.php";
-use Localhost\SessionManager;
-use Localhost\imagesContorller;
+
+use Localhost\SessionClass\SessionManager;
+use Localhost\ImageLoading\imagesContorller;
+use Localhost\Service\Admin;
 
 SessionManager::create();
+
+define('uploaded_path', $_SERVER['DOCUMENT_ROOT'].'/uploaded');
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -19,13 +23,13 @@ SessionManager::create();
 <table>
     <td>
         <?php
-        if ( SessionManager::create()->isAuthorized() && (\Localhost\AdminCheck::Check() != null) ) {
+        if ( SessionManager::create()->isAuthorized() && (Admin::Check() != null) ) {
         echo "Добро пожаловть ", SessionManager::create()->user('user_login'); ?> <font color="red">(Admin)</font> <?php ; ?>
     </td>
 
     <td>
         <div class="container">
-            <a href="logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
+            <a href="Auth/logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
         </div>
     </td>
 
@@ -42,7 +46,7 @@ SessionManager::create();
 
     <td>
         <div class="container">
-            <a href="logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
+            <a href="Auth/logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
         </div>
     </td>
 

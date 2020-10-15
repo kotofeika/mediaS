@@ -1,6 +1,6 @@
 <?php
 
-namespace Localhost;
+namespace Localhost\Service;
 
 class DB
 {

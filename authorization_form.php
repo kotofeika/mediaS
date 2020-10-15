@@ -10,7 +10,7 @@
 <a href="index.php">
     <button>Главная</button>
 </a>
-<form action="authorization.php" id="autorize" method="POST">
+<form action="Auth/authorization.php" id="autorize" method="POST">
     <p>Логин</p>
     <input name="login" type="text" required><br>
     <?php if (!empty($_SESSION['errors']['login'])) {?>

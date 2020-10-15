@@ -1,5 +1,5 @@
 <?php
-namespace Localhost;
+namespace Localhost\SessionClass;
 
 class SessionHandler implements \SessionHandlerInterface
 {

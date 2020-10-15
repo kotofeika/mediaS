@@ -1,6 +1,10 @@
 <?php
 
-namespace Localhost;
+namespace Localhost\ImageLoading;
+
+use Localhost\Service\DB;
+use Localhost\SessionClass\SessionManager;
+
 
 class imagesContorller
 {
@@ -10,10 +14,10 @@ class imagesContorller
 
     protected static string $select_where = 'SELECT `user_login` FROM `users` WHERE `user_id` = :id';
 
-    protected static string $queryMy = 'SELECT `user_id`,`name` FROM `pictures` WHERE `user_id` = :id';
+    protected static string $queryMy = 'SELECT `user_id`,`name`, `id` FROM `pictures` WHERE `user_id` = :id';
 
-    protected static string $queryOne = 'SELECT `name`,`views` FROM `pictures` WHERE `name` = :id';
-    protected static string $queryOneUpdate = 'UPDATE `pictures` SET `views` = `views`+1 WHERE `name` = :id';
+    protected static string $queryOne = 'SELECT `name`,`views` FROM `pictures` WHERE `id` = :id';
+    protected static string $queryOneUpdate = 'UPDATE `pictures` SET `views` = `views`+1 WHERE `id` = :id';
 
     public static function ShowOne($file)
     {
@@ -22,7 +26,7 @@ class imagesContorller
         $pdo->update(self::$queryOneUpdate, $options);
         $allViewsData = $pdo->execute(self::$queryOne, $options); ?>
 
-        <img src="<?= $file ?>" class="pimg" title="<?= $file ?>"/>
+        <img src="<?= '../uploaded' . DIRECTORY_SEPARATOR . $allViewsData['name'] ?>" class="pimg" title="<?= $file ?>"/>
             <p align="center" >Просмотров: <?= $allViewsData['views'] ?></p>
         <?php }
 
@@ -32,7 +36,7 @@ class imagesContorller
         $options = [':id' => SessionManager::create()->user('user_id')];
         $PicData = $pdo->executeAll(self::$queryMy, $options);
 
-        if (!empty(self::$dir)) {
+        if (!empty(self::$dir++)) {
             foreach ($PicData as $rowPicData) { ?>
                 <table align="center" id="uploaded_image" border="2" width="650px" height="650px">
                     <thead bgcolor="#2F4F4F" style="color: #FFFFFF ">
@@ -46,9 +50,9 @@ class imagesContorller
                     <tbody align="center" bgcolor="black">
                         <tr>
                             <td>
-                                <a href="details.php?id=<?= $rowPicData['name'] ?>">
+                                <a href="details.php?id=<?= $rowPicData['id'] ?>">
                                     <div id="uploaded_image" class="blok_img">
-                                        <img src="<?= $rowPicData['name']  ?>" height="550px" class="pimg" title="<?= $rowPicData['name'] ?>"/>
+                                        <img src="<?='../uploaded' . DIRECTORY_SEPARATOR . $rowPicData['name']  ?>" height="550px" class="pimg" title="<?= $rowPicData['name'] ?>"/>
                                     </div>
                                 </a>
                             </td>
