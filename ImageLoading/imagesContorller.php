@@ -8,8 +8,8 @@ use Localhost\SessionClass\SessionManager;
 
 class imagesContorller
 {
-    protected static string $dir = 'uploaded';
-    protected static string $queryAll = 'SELECT `user_id`,`name`,`views` FROM `pictures`';
+    protected static string $dir = '../uploaded';
+    protected static string $queryAll = 'SELECT `user_id`,`name`,`views`, `id` FROM `pictures`';
     protected static string $sqlAll = 'SELECT `user_id`, `user_login` FROM `users`';
 
     protected static string $select_where = 'SELECT `user_login` FROM `users` WHERE `user_id` = :id';
@@ -26,7 +26,7 @@ class imagesContorller
         $pdo->update(self::$queryOneUpdate, $options);
         $allViewsData = $pdo->execute(self::$queryOne, $options); ?>
 
-        <img src="<?= '../uploaded' . DIRECTORY_SEPARATOR . $allViewsData['name'] ?>" class="pimg" title="<?= $file ?>"/>
+        <img src="../uploaded<?= DIRECTORY_SEPARATOR . $allViewsData['name'] ?>" class="pimg" title="<?= $file ?>"/>
             <p align="center" >Просмотров: <?= $allViewsData['views'] ?></p>
         <?php }
 
@@ -38,7 +38,7 @@ class imagesContorller
 
         if (!empty(self::$dir++)) {
             foreach ($PicData as $rowPicData) { ?>
-                <table align="center" id="uploaded_image" border="2" width="650px" height="650px">
+                <table align="center" id="uploaded_image" border="2">
                     <thead bgcolor="#2F4F4F" style="color: #FFFFFF ">
                         <td>
                             <?php
@@ -52,7 +52,7 @@ class imagesContorller
                             <td>
                                 <a href="details.php?id=<?= $rowPicData['id'] ?>">
                                     <div id="uploaded_image" class="blok_img">
-                                        <img src="<?='../uploaded' . DIRECTORY_SEPARATOR . $rowPicData['name']  ?>" height="550px" class="pimg" title="<?= $rowPicData['name'] ?>"/>
+                                        <img src="../uploaded/<?= $rowPicData['name']?>" width="500px" class="pimg" title="<?= $rowPicData['name'] ?>"/>
                                     </div>
                                 </a>
                             </td>
@@ -152,8 +152,7 @@ class imagesContorller
                                 <td>
                                     <a href="details.php?id=<?= $PicData['name'] ?>">
                                         <div class="blok_img">
-                                            <img src="<?= $PicData['name'] ?>" height="550px" class="img"
-                                                 title="<?= $PicData['name']; ?>"/>
+                                            <img src="../uploaded/<?= $PicData['name'] ?>" height="550px" class="img" title="<?= $PicData['name']; ?>"/>
                                         </div>
                                     </a>
                                     <?php foreach ($allViewsData as $rowViewData) {
@@ -217,21 +216,35 @@ class imagesContorller
         if (!empty(self::$dir)) {
             foreach ($allViewsData as $PicData) {
                 foreach ($allUsersData as $rowUsersData) { ?>
-                    <table align="center" id="uploaded_image" border="2" width="650px" height="650px">
+                    <table align="center" id="uploaded_image" border="2" >
                     <thead bgcolor="#2F4F4F" style="color: #FFFFFF ">
                     <?php if ($PicData['user_id'] === $rowUsersData['user_id']) { ?>
-                        <?php if ( $rowUsersData['user_login'] == SessionManager::create()->user('user_login') ){ ?>
-                        <td><a href="lk_form.php"> <?= $rowUsersData['user_login'], " " ?></a><a href="deleteImage.php?id=<?=  $PicData['name'] ?>"><font color="red">Удалить</font><a></td>
+                        <?php if ( $PicData['user_id'] == SessionManager::create()->user('user_id') ){ ?>
+                        <td>
+                            <a href="lk_form.php">
+                                <?=SessionManager::create()->user('user_login')?>
+                            </a>
+                            <a href="deleteImage.php?id=<?=$PicData['name']?>">
+                                <font color="blue">Удалить</font>
+                            </a>
+                        </td>
                             <?php } if ( $PicData['user_id'] !== SessionManager::create()->user('user_id') ){ ?>
-                        <td><a href="lk_form.php?id= <?= $rowUsersData['user_id'] ?>"> <font color="#f0f8ff"><?= $rowUsersData['user_login'], " " ?><font></a><a href="deleteImage.php?id=<?=  $PicData['name'] ?>"><font color="red">Удалить</font><a></td>
+                        <td>
+                            <a href="lk_form.php?id=<?= $rowUsersData['user_id'] ?>">
+                                <font color="#f0f8ff"><?= $rowUsersData['user_login'], " " ?><font>
+                            </a>
+                            <a href="deleteImage.php?id=<?=  $PicData['name'] ?>">
+                                <font color="red">Удалить</font>
+                            </a>
+                        </td>
                     <?php } } } ?>
                 </thead>
                 <tbody align="center" bgcolor="black">
                 <tr>
                     <td>
-                        <a href="details.php?id=<?= $PicData['name'] ?>">
+                        <a href="ImageLoading/details.php?id=<?= $PicData['id'] ?>">
                             <div class="blok_img">
-                                <img src="<?= $PicData['name'] ?>" height="550px" class="img"
+                                <img width="500px" src="../uploaded/<?= $PicData['name'] ?>" width="650px" class="img"
                                      title="<?= $PicData['name']; ?>"/>
                             </div>
                         </a>
