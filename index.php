@@ -7,7 +7,8 @@ use Localhost\Service\Admin;
 
 SessionManager::create();
 
-define('uploaded_path', $_SERVER['DOCUMENT_ROOT'].'/uploaded');
+define('uploaded_path', $_SERVER['DOCUMENT_ROOT'] . '/uploaded');
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -23,8 +24,9 @@ define('uploaded_path', $_SERVER['DOCUMENT_ROOT'].'/uploaded');
 <table>
     <td>
         <?php
-        if ( SessionManager::create()->isAuthorized() && (Admin::Check() != null) ) {
-        echo "Добро пожаловть ", SessionManager::create()->user('user_login'); ?> <font color="red">(Admin)</font> <?php ; ?>
+        if (SessionManager::create()->isAuthorized() && (Admin::Check() != null)) {
+        echo "Добро пожаловть ", SessionManager::create()->user('user_login'); ?> <font
+                color="red">(Admin)</font> <?php ; ?>
     </td>
 
     <td>
@@ -38,17 +40,17 @@ define('uploaded_path', $_SERVER['DOCUMENT_ROOT'].'/uploaded');
     <button>Личный кабинет</button>
 </a>
 <?php imagesContorller::AdmShowAll();
-} else if  (SessionManager::create()->isAuthorized() ) {?>
-<table>
-    <td> <?php
-    echo "Добро пожаловть ", SessionManager::create()->user('user_login'); ?>
-    </td>
+} else if (SessionManager::create()->isAuthorized()) { ?>
+    <table>
+        <td> <?php
+            echo "Добро пожаловть ", SessionManager::create()->user('user_login'); ?>
+        </td>
 
-    <td>
-        <div class="container">
-            <a href="Auth/logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
-        </div>
-    </td>
+        <td>
+            <div class="container">
+                <a href="Auth/logout.php"><img src="images/logout.jpg" height="50" alt="error"></a>
+            </div>
+        </td>
 
     </table>
     <a href="lk_form.php">
@@ -56,8 +58,7 @@ define('uploaded_path', $_SERVER['DOCUMENT_ROOT'].'/uploaded');
     </a>
     <?php
     imagesContorller::ShowAll();
-}
-else {
+} else {
     echo "Пожалуйста авторизируйтесь"; ?>
     <table>
         <td>
@@ -72,7 +73,8 @@ else {
             </a>
         </td>
     </table>
-<?php imagesContorller::ShowAll(); }
+    <?php imagesContorller::ShowAll();
+}
 ?>
 </body>
 </html>

@@ -35,7 +35,7 @@ class SessionHandler implements \SessionHandlerInterface
     public function read($session_id)
     {
         $file = $this->savePath . DIRECTORY_SEPARATOR . $session_id;
-        if (!is_file($file)){
+        if (!is_file($file)) {
             touch($file);
         }
         return file_get_contents($this->savePath . DIRECTORY_SEPARATOR . $session_id);

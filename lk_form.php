@@ -49,27 +49,28 @@ if (SessionManager::create()->isAuthorized() && $_GET['id'] === null){
 </table>
 
 <?php imagesContorller::ShowMy();
-} if (SessionManager::create()->isAuthorized() && $_GET['id'] != SessionManager::create()->user('user_id') && Admin::Check() === null ){ ?>
+}
+if (SessionManager::create()->isAuthorized() && $_GET['id'] != SessionManager::create()->user('user_id') && Admin::Check() === null) { ?>
 
-<?php imagesContorller::ShowUser();
+    <?php imagesContorller::ShowUser();
 }
 
-if (SessionManager::create()->isAuthorized() && ( $_GET['id'] != SessionManager::create()->user('user_id') || $_GET['id'] !=null ) && Admin::Check() != null ){ ?>
+if (SessionManager::create()->isAuthorized() && ($_GET['id'] != SessionManager::create()->user('user_id') || $_GET['id'] != null) && Admin::Check() != null) { ?>
 
     <?php imagesContorller::AdmShowUser();
 }
 
 if (SessionManager::create()->isAuthorized() === false) {
-    echo "Пожалуйста авторизируйтесь"; ?>
+echo "Пожалуйста авторизируйтесь"; ?>
 <table>
     <td>
         <a href="index.php">
             <button>Главная</button>
         </a>
     </td>
-<?php
+    <?php
     imagesContorller::ShowMyNotAuth();
-}
-?>
+    }
+    ?>
 </body>
 </html>

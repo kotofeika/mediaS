@@ -1,5 +1,4 @@
 <?php
-
 namespace Localhost\SessionClass;
 
 class SessionManager
@@ -16,13 +15,13 @@ class SessionManager
 
     public static function create()
     {
-        if (is_null(self::$instance)){
+        if (is_null(self::$instance)) {
             self::$instance = new self;
         }
         return self::$instance;
     }
 
-    public  function set($key, $value)
+    public function set($key, $value)
     {
         $_SESSION[$key] = $value;
     }
@@ -39,7 +38,7 @@ class SessionManager
 
     public function user(?string $field = null)
     {
-        if(is_null($field)){
+        if (is_null($field)) {
             return $_SESSION['user'] ?? null;
         }
         return $_SESSION['user'][$field] ?? null;
@@ -60,7 +59,7 @@ class SessionManager
         return $_SESSION['errors'] ?? [];
     }
 
-    public function setErrors($key,$value)
+    public function setErrors($key, $value)
     {
         $_SESSION['errors'][$key] = $value;
     }
